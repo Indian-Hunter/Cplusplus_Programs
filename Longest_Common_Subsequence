@@ -1,0 +1,50 @@
+/*
+ 	Problem Statement : Longest Common Subsequence
+ 	
+ 	Explanation : You are given two strings and you need to find the longest common subsequence,,,, 
+ 				  here we are no looking for contiguose matches 
+ 	
+ 	Input 1: 
+ 	  s1 = ABCDGH
+ 	  s2 = AEDFHR
+ 	  
+ 	Output :
+ 		LCS : ADH of length 3.
+	
+	Input 2:
+	  s1 = AGGTAB
+	  s2 = GXTXAYB
+	  
+	Output :
+		LCS : GTAB of length 4.
+
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int lcs(string x,string y,int xi,int yi,int count)
+{
+  if(xi==0 || yi==0) // here xi and yi are size and not index here are using one-indexing and the zero here is of size
+  {
+    return count;
+  }
+  if(x[xi]==y[yi])
+  {
+    return lcs(x,y,xi-1,yi-1,count+1);
+  }
+  else
+  {
+    return max(
+      lcs(x,y,xi-1,yi,count),
+      lcs(x,y,xi,yi-1,count)
+    );
+  }
+}
+
+int main()
+{
+  string x,y;
+  cin>>x>>y;
+  cout<<lcs(x,y,x.size(),y.size(),0);
+}
