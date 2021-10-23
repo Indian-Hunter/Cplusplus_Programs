@@ -1,0 +1,58 @@
+/*
+   Mother Problem : 0-1 Knapsack 
+
+    Problem Statement : Get The Target Sum
+    
+    Given and array and starting  from first element you can either + it to total or - it from the total for achiveing target sum
+	
+	Explanation Link : https://www.youtube.com/watch?v=Hw6Ygp3JBYw&list=PL_z_8CaSLPWekqhdCPmFohncHwz8TY2Go&index=13
+    
+	Input 1: 
+      N=4
+      Array=[1,1,2,3]
+      sum: 1
+    
+    Output : 3
+      
+      Explanation : 
+	  	+1 +1 +2 -3   ==> sum = 1
+ 		+1 -1 -2 +3	  ==> sum = 1
+ 		-1 +1 -2 +3   ==> sum = 1
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int targetsum(vector<int> &v,int curr,int n,int total,int sum,string str)
+{
+  //cout<<str<<"\n";
+  if(curr==n+1)
+  {
+    if(total==sum)
+    {
+      cout<<str<<"\n";
+      return 1;
+    }
+    else
+    {
+      return 0;
+    }
+  }
+  return targetsum(v,curr+1,n,total+v[curr],sum,str+" +"+to_string(v[curr]))+
+         targetsum(v,curr+1,n,total-v[curr],sum,str+" -"+to_string(v[curr]));
+}
+
+int main()
+{
+  int n;
+  cin>>n;
+  int sum=0;
+  vector<int> v(n+1);
+  for(int i=1;i<=n;i++)
+  {
+    cin>>v[i];
+  }
+  cin>>sum;
+  cout<<targetsum(v,1,n,0,sum,"");
+  return 0;
+}
